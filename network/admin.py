@@ -3,7 +3,7 @@ from network.models import Host
 from django.utils.translation import ugettext as _
 
 class HostAdmin(admin.ModelAdmin):
-	list_display = ( 'entry', 'host', 'ip', 'wifi', 'mac', 'enabled' )
+	list_display = ( 'entry', 'host', 'ip', 'mac', 'wifi', 'enabled' )
 	list_filter = ( 'wifi', 'enabled' )
 	ordering = ( 'entry', )
 	actions = [ 'set_enabled', 'unset_enabled', 'set_wifi', 'unset_wifi' ]
