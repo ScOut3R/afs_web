@@ -7,6 +7,7 @@ class HostAdmin(admin.ModelAdmin):
 	list_filter = ( 'wifi', 'enabled' )
 	ordering = ( 'entry', )
 	actions = [ 'set_enabled', 'unset_enabled', 'set_wifi', 'unset_wifi' ]
+	search_fields = [ 'entry', 'host', 'ip', 'mac' ]
 	
 	def set_enabled(self, request, queryset):
 		rows_updated = queryset.update(enabled=True)
