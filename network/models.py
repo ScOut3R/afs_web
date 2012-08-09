@@ -2,9 +2,12 @@ from django.db import models
 from django.forms import fields
 from django.utils.translation import ugettext as _
 import re
+from south.modelsinspector import add_introspection_rules
 
 MAC_RE = r'^([0-9a-fA-F]{2}([:-]?|$)){6}$'
 mac_re = re.compile(MAC_RE)
+
+add_introspection_rules([], ["^network\.models\.MACAddressField"])
 
 class MACAddressFormField(fields.RegexField):
 	default_error_messages = {
