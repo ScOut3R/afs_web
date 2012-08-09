@@ -2,6 +2,7 @@ from django.core.management.base import NoArgsCommand
 import subprocess
 from network.models import Host
 import datetime
+from django.utils.timezone import utc
 
 
 class Command(NoArgsCommand):
@@ -14,5 +15,5 @@ class Command(NoArgsCommand):
 		for mac in command.stdout.readlines():
 			if Host.objects.filter(mac=mac.rstrip('\n')):
 				host = Host.objects.get(mac=mac.rstrip('\n'))
-				host.last_seen = datetime.datetime.now()
+				host.last_seen = datetime.datetime.utcnow().replace(tzinfo=utc)
 				host.save()
