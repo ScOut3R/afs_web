@@ -38,7 +38,7 @@ class Host(models.Model):
 	mac = MACAddressField(unique=True, verbose_name=("MAC"))
 	wifi = models.BooleanField(default=False, verbose_name=("WiFi"))
 	enabled = models.BooleanField(default=True)
-	last_seen = models.DateTimeField(blank=True, null=True)
+	last_seen = models.DateTimeField(blank=True, null=True, editable=False)
 
 	def __unicode__(self):
 		return self.entry
