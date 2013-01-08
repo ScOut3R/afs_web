@@ -43,6 +43,9 @@ class Host(models.Model):
 	def __unicode__(self):
 		return self.entry
 
+	class Meta:
+		ordering = [ 'entry', 'host' ]
+
 POLICIES = (
 	('A', 'ACCEPT'),
 	('R', 'REJECT'),
