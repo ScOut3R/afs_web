@@ -1,5 +1,5 @@
 from django.core.management.base import NoArgsCommand
-from network.models import Host
+from network.models import Host, Group
 import yaml
 from optparse import make_option
 
@@ -27,3 +27,15 @@ class Command(NoArgsCommand):
 		output = open(options['network'],'w')
 		yaml.dump(network, output, default_flow_style=False)
 		output.close()
+		
+		if options.has_key('shorewall'):
+			if options['shorewall'].has_key('groups'):
+			
+				groups = {}
+			
+				for group in Group.objects.filter(enabled=True):
+					groups[str(group.name)] = { 'policy': str(group.get_policy_display()), 'ips': list(set([ host.ip for host in group.hosts.all() ])) }
+
+				output = open(options['shorewall']['groups']['config'], 'w')
+				yaml.dump(groups, output, default_flow_style=False)
+				output.close()

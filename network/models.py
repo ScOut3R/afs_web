@@ -42,3 +42,18 @@ class Host(models.Model):
 
 	def __unicode__(self):
 		return self.entry
+
+POLICIES = (
+	('A', 'ACCEPT'),
+	('R', 'REJECT'),
+	('D', 'DROP'),
+)
+
+class Group(models.Model):
+	name = models.CharField(max_length=64, unique=True)
+	policy = models.CharField(max_length=1, choices=POLICIES)
+	hosts = models.ManyToManyField(Host, related_name='grouphosts')
+	enabled = models.BooleanField(default=True)
+
+	def __unicode__(self):
+		return self.name
